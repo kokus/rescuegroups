@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @file
@@ -36,7 +36,7 @@ function rescuegroups_menu() {
     'access arguments' => array('administer rescuegroups'),
     'file' => 'rescuegroups.admin.inc',
   );
-  
+
   return $items;
 }
 
@@ -98,7 +98,7 @@ function rescuegroups_perm() {
 // 		if (!empty($result['node'])) {
 // 			$node = array_shift($result['node']);
 // 			return $node->nid;
-// 		} 
+// 		}
 // }
 
 // /**
@@ -110,11 +110,11 @@ function rescuegroups_perm() {
 // }
 
 // /**
-//  * Imports animal data from rescuegroups API into rescuegroups_animal 
+//  * Imports animal data from rescuegroups API into rescuegroups_animal
 //  */
 // function _rescuegroups_pull_dogs() {
 // 	global $api_key;
-// 	module_load_include('php','rescuegroups','curl_json');  // TO DO try using:  drupal_http_request 
+// 	module_load_include('php','rescuegroups','curl_json');  // TO DO try using:  drupal_http_request
 // 	$api_query = get_animal_query($api_key,6);
 // 	$datajson = curl_json($api_query);
 // 	foreach ($datajson as $dog) {
@@ -142,7 +142,7 @@ function rescuegroups_perm() {
 // function _rescuegroups_get_dogs() {
 // 	global $api_key;
 //   	$items = array();
-// 	module_load_include('php','rescuegroups','curl_json');  // TO DO try using:  drupal_http_request 
+// 	module_load_include('php','rescuegroups','curl_json');  // TO DO try using:  drupal_http_request
 
 // 	$api_query = get_animal_query($api_key,6);
 // 	$datajson = curl_json($api_query);
@@ -174,7 +174,7 @@ function rescuegroups_perm() {
 // 							))
 // 							->execute();
 // 					}
-// 				}	
+// 				}
 //   		}
 // }
 
@@ -223,6 +223,6 @@ function rescuegroups_perm() {
 // 	         			),
 // 	    ),
 // 	);
-	
+
 // 	return $data;
 // }

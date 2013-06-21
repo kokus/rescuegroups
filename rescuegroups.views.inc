@@ -17,7 +17,7 @@ function rescuegroups_views_data() {
 	    'title' => t('Rescuegroups API'),
 	    'help' => t('Queries the Rescuegroups API'),
 	    // use a diferent data source ,in this case a query to external rescuegroups API
-	    'query class' => 'rescuegroups_views_backend'  	
+	    'query class' => 'rescuegroups_views_backend'
 	);
 
   	return $data;

@@ -9,4 +9,5 @@ dependencies[] = ctools
 dependencies[] = views
 
 files[] = rescuegroups.admin.inc
+files[] = rescuegroups_views_plugin_query.inc
 

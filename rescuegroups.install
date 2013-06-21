@@ -1,0 +1,124 @@
+<?php
+
+
+ /**
+ * Implementation of hook_schema().
+ */
+function rescuegroups_schema() {
+  $schema['rescuegroups_animal'] = array(
+    'fields' => array(
+      'animal_id' => array(
+        'description' => 'Stores animal ID from rescuegroups.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'animal_name' => array(
+        'description' => 'Stores dog name assigned in rescuegroups.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'animal_sex' => array(
+        'description' => 'Stores god sex male or female from rescuegroups.',
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'animal_general_age' => array(
+        'description' => 'Stores dog general age senior or young.',
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'animal_color_details' => array(
+        'description' => 'Stores full dog color buff black.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'animal_description' => array(
+        'description' => 'Stores full dog description.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+      ),
+      'animal_location' => array(
+        'description' => 'Stores location of animal if not in foster.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'animal_needs_foster' => array(
+        'description' => 'Stores location of animal if not in foster.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+       'foster_firstname' => array(
+        'description' => 'Stores Dog Foster first name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'foster_lastname' => array(
+        'description' => 'Stores Dog Fosters last name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'foster_email' => array(
+        'description' => 'Stores Dog Fosters email.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'animal_last_update' => array(
+        'description' => 'Stores last animal update date and time.',
+        'type' => 'datetime',
+        'mysql_type' => 'datetime',
+        'pgsql_type' => 'timestamp without time zone',
+        'sqlite_type' => 'varchar',
+        'sqlsrv_type' => 'smalldatetime',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('animal_id'),
+  );
+
+    $schema['rescuegroups_animal_image'] = array(
+    'fields' => array(
+      'imageid' => array(
+        'description' => 'Unique identifier for a relation animal image.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'animal_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'animal_url_image_full' => array(
+        'description' => 'Stores full path url of full size image per animal ID.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('imageid'),
+  );
+
+  return $schema;
+} 

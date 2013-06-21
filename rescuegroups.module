@@ -1,0 +1,228 @@
+<?php 
+
+/**
+ * @file
+ *   A Views backend to query the Rescuegroups API.
+ */
+
+/**
+ * Settings defaults so we we don't have to change all the variable_get() calls
+ * later when I change my mind.
+ */
+define('RESCUEGROUPS_DEFAULT_API_URL', 'https://api.rescuegroups.org/http/json');
+
+
+/**
+ * Implementation of hook_views_api().
+ */
+function rescuegroups_views_api() {
+  return array(
+    'api' => 3.0,
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function rescuegroups_menu() {
+  $items = array();
+
+  $items['admin/config/services/rescuegroups'] = array(
+    'title' => t('rescuegroups settings'),
+    'description' => t('Global settings for the Rescuegroups Views backend.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('rescuegroups_settings_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer rescuegroups'),
+    'file' => 'rescuegroups.admin.inc',
+  );
+  
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function rescuegroups_perm() {
+  return array(
+    'administer rescuegroups',
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// global $api_key;
+// $api_key = 'UJpSrvX3';
+
+// /**
+// * Implementation of hook_menu()
+// */
+// function rescuegroups_menu() {
+// 	$items = array();
+// 	$items['admin/rescue'] = array(
+// 		'title' => t('Example Page'),
+//     	'page callback' => 'test_query',
+//     	'access arguments' => array('access content'),
+//     	'type' => MENU_CALLBACK,
+// 	);
+// 	return $items;
+//  }
+
+
+// /**
+// * Given an AnimalID, find a matching node id (nid)
+// * @paran string $animalID
+// */
+// function test_query() {
+// 	//return "Hello World";
+// 	$animalID = 12345;
+// 	$query = new EntityFieldQuery;
+// 	$result = $query
+// 		->entityCondition('entity_type','node')
+// 		->entityCondition('bundle','dog')
+// 		->fieldCondition('field_dog_rg_id','value',$animalID,'=')
+// 		 ->execute();
+// 		if (!empty($result['node'])) {
+// 			$node = array_shift($result['node']);
+// 			return $node->nid;
+// 		} 
+// }
+
+// /**
+//  * Implementation of hook_cron().
+//  */
+// function rescuegroups_cron() {
+//   //_rescuegroups_get_dogs();
+//   //_rescuegroups_pull_dogs();
+// }
+
+// /**
+//  * Imports animal data from rescuegroups API into rescuegroups_animal 
+//  */
+// function _rescuegroups_pull_dogs() {
+// 	global $api_key;
+// 	module_load_include('php','rescuegroups','curl_json');  // TO DO try using:  drupal_http_request 
+// 	$api_query = get_animal_query($api_key,6);
+// 	$datajson = curl_json($api_query);
+// 	foreach ($datajson as $dog) {
+// 		rc_pull_insert_dog($dog);
+// 	}
+// }
+
+
+// /**
+//  * Creates a new dog node from Rescue Groups Animal JSON object
+//  */
+// function rc_pull_insert_dog($dog) {
+// 	$nid = rc_pull_get_nid_from_animal_id($dog['animalID']);
+// 	if ($nid) {
+// 		$dog->nid = $nid;
+// 	}
+// 	npr_pull_save_story($story);
+// }
+
+
+// /**
+//  * Imports animal data from rescuegroups API into rescuegroups_animal custom table
+//  */
+
+// function _rescuegroups_get_dogs() {
+// 	global $api_key;
+//   	$items = array();
+// 	module_load_include('php','rescuegroups','curl_json');  // TO DO try using:  drupal_http_request 
+
+// 	$api_query = get_animal_query($api_key,6);
+// 	$datajson = curl_json($api_query);
+// 	foreach ($datajson as $row) {
+
+// 		db_insert('rescuegroups_animal')
+// 			  ->fields(array(
+// 			    'animal_id' => $row['animalID'],
+// 			    'animal_name' => $row['animalName'],
+// 			    'animal_sex' => $row['animalSex'],
+// 			    'animal_general_age' => $row['animalGeneralAge'],
+// 			    'animal_color_details' => $row['animalColorDetails'],
+// 			    'animal_description' => $row['animalDescription'],
+// 			    'animal_location' => $row['animalLocation'],
+// 			    'animal_needs_foster' => $row['animalNeedsFoster'],
+// 			    'foster_firstname' => $row['fosterFirstname'],
+// 			    'foster_lastname' => $row['fosterLastname'],
+// 			    'foster_email' => $row['fosterEmail'],
+// 			    'animal_last_update' => date('Y-m-d H:i', strtotime($row['animalUpdatedDate']))
+// 			  ))
+// 			  ->execute();
+// 			  //Insert images if $row['animalPictures']
+// 				if(count($row['animalPictures']) > 0) {
+// 					foreach ($row['animalPictures'] as $imagerow) {
+// 						db_insert('rescuegroups_animal_image')
+// 							->fields(array(
+// 								'animal_id' => $row['animalID'],
+// 								'animal_url_image_full' => $imagerow['urlSecureFullsize']
+// 							))
+// 							->execute();
+// 					}
+// 				}	
+//   		}
+// }
+
+// /**
+// * Prepares data array for specific rescue groups API query ( Animals )
+// */
+
+// function get_animal_query($key,$limit) {
+// 	$today = date("m/d/Y");
+// 	$data = array(
+// 	    "apikey" => $key,
+// 	    "objectType" => "animals",
+// 	    "objectAction" => "publicSearch",
+// 	    "search" => array (
+// 	        "resultStart" => 0,
+// 	        "resultLimit" => $limit,
+// 	        "resultSort" => "animalID",
+// 	        "resultOrder" => "asc",
+// 	        "calcFoundRows" => "Yes",
+// 			"filters" => array(
+// 			      array(
+// 			        "fieldName" => "animalStatus",
+// 			        "operation" => "equals",
+// 			        "criteria" => "Available",
+// 			      ),
+// 				 array(
+// 			        "fieldName" => "animalSpecies",
+// 			        "operation" => "equal",
+// 			        "criteria" => "Dog",
+// 			      ),
+// 			 ),
+// 	         "fields" => array(
+// 	         				"animalId",
+// 	         				"animalName",
+// 	         				"animalSex",
+// 	         				"animalGeneralAge",
+// 	         				"animalColorDetails",
+// 	         				"animalDescription",
+// 	         				"animalPictures",
+// 	         				"animalLocation",
+// 	         				"animalNeedsFoster",
+// 	         				"fosterFirstname",
+// 	         				"fosterLastname",
+// 	         				"fosterEmail",
+// 							"animalUpdatedDate"
+// 	         			),
+// 	    ),
+// 	);
+	
+// 	return $data;
+// }

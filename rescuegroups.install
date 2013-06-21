@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_uninstall()
  */
-function rescuegroups_extra_uninstall() {
+function rescuegroups_uninstall() {
   variable_del('rescuegroups_api_key');
 }
 
